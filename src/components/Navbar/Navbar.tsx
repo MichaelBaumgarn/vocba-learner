@@ -7,7 +7,7 @@ export default function WithSubnavigation() {
 
   return (
     <div className="m-6 flex justify-center space-x-6">
-      <Link href="/words">Words</Link>
+      <Link href="/vocab">Vocab</Link>
       <Link href="/learn">Learn</Link>
     </div>
   );
