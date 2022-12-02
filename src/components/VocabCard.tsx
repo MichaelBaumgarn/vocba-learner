@@ -4,14 +4,12 @@ import type { Vocab } from "@prisma/client";
 
 export interface IVocabCardProps {
   onDelete: (id: string) => void;
-  key: number;
   vocab: Vocab;
 }
 
-export const VocabCard = ({ key, vocab, onDelete }: IVocabCardProps) => {
+export const VocabCard = ({ vocab, onDelete }: IVocabCardProps) => {
   return (
     <Card
-      key={key}
       alignHeader="left"
       footer={
         <Button

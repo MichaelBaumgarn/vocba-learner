@@ -1,7 +1,7 @@
 import { Button, Card, Input } from "react-creme";
+import { useEffect, useState } from "react";
 
 import { trpc } from "../utils/trpc";
-import { useState } from "react";
 
 interface IAddVocabProps {
   refetch: () => void;
@@ -10,14 +10,18 @@ interface IAddVocabProps {
 export const AddVocab: React.FunctionComponent<IAddVocabProps> = ({
   refetch,
 }) => {
-  const insertVocab = trpc.vocab.post.useMutation();
+  const vocabMutation = trpc.vocab.post.useMutation();
   const [english, setEnglish] = useState("");
   const [spanish, setSpanish] = useState("");
+
+  useEffect(() => {
+    if (vocabMutation.isSuccess) refetch();
+  }, [vocabMutation.isSuccess, refetch]);
+
   const handleAdd = async () => {
-    refetch();
-    console.log("add", english, spanish);
-    insertVocab.mutate({ english, spanish });
+    await vocabMutation.mutate({ english, spanish });
   };
+
   return (
     <Card header="Add vocab word">
       <div className="flex w-full flex-col justify-start">

@@ -17,12 +17,13 @@
     "@trpc/next": "^10.0.0",
     "@trpc/react-query": "^10.0.0",
     "@trpc/server": "^10.0.0",
+    "babel-plugin-superjson-next": "^0.4.5",
     "next": "13.0.2",
     "next-auth": "^4.15.1",
     "react": "18.2.0",
     "react-creme": "^0.24.3",
     "react-dom": "18.2.0",
-    "superjson": "1.9.1",
+    "superjson": "^1.11.0",
     "zod": "^3.18.0"
   },
   "devDependencies": {
