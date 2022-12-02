@@ -1,6 +1,6 @@
 import { Button, Card } from "react-creme";
 
-import { Vocab } from "@prisma/client";
+import type { Vocab } from "@prisma/client";
 
 export interface IVocabCardProps {
   onDelete: (id: string) => void;
