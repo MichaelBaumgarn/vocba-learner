@@ -1,50 +1,34 @@
 import { type NextPage } from "next";
-import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
 
 import { trpc } from "../utils/trpc";
-import { useState } from "react";
+import { PageHeader } from "react-creme";
+import { AddVocab } from "../components/AddVocab";
+import { VocabCard } from "../components/VocabCard";
 
-const Vocab: NextPage = () => {
-  const getAllVocabs = trpc.vocab.getAll.useQuery();
+export const VocabPage: NextPage = () => {
+  const { data: vocab, refetch } = trpc.vocab.getAll.useQuery();
+  const deleteWord = trpc.vocab.delete.useMutation();
 
-  return (
-    <div>
-      {getAllVocabs.data &&
-        getAllVocabs.data.map((v, i) => <div key={i}>{v.english}</div>)}
-      <AddVocab foo={""} />
-    </div>
-  );
-};
+  const handleDelete = (id: string) => {
+    console.log(id);
 
-export default Vocab;
-
-interface IAppProps {
-  foo: string;
-}
-
-export const AddVocab: React.FunctionComponent<IAppProps> = (props) => {
-  const insertVocab = trpc.vocab.post.useMutation();
-  const [english, setEnglish] = useState("");
-  const [spanish, setSpanish] = useState("");
-  const handleAdd = async () => {
-    console.log("add", english, spanish);
-    insertVocab.mutate({ english, spanish });
+    deleteWord.mutate({ id: id });
+    refetch();
   };
   return (
-    <div>
-      <div>add vocab word</div>
-      <div>english</div>
-      <input
-        onChange={(e) => setEnglish(e.target.value)}
-        className="outline"
-      ></input>
-      <div>spanish</div>
-      <input
-        onChange={(e) => setSpanish(e.target.value)}
-        className="outline"
-      ></input>
-      <button onClick={handleAdd}>Add</button>
+    <div className="m-4">
+      <AddVocab refetch={refetch} />
+      <PageHeader size="lg" title="Vocabulary words" />
+      <div className="my-4 flex justify-center">
+        <div className="grid gap-4 md:grid-cols-5  lg:grid-cols-7 ">
+          {vocab &&
+            vocab.map((v, i) => (
+              <VocabCard key={i} onDelete={handleDelete} vocab={v}></VocabCard>
+            ))}
+        </div>
+      </div>
     </div>
   );
 };
+
+export default VocabPage;
