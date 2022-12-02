@@ -4,6 +4,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 import { trpc } from "../utils/trpc";
 import { useState } from "react";
+import { Button, Input } from "react-creme";
 
 const Learn: NextPage = () => {
   const vocab = trpc.vocab.getAll.useQuery();
@@ -35,23 +36,41 @@ const Learn: NextPage = () => {
       setCorrect(false);
     }
   };
+  const handleEnter = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (e.code == "Enter") {
+      if (mode === "answer") {
+        handleNextQuestion();
+      } else {
+        handleAnswer();
+      }
+    }
+  };
   return (
-    <div className="flex flex-col items-center">
-      <div>{mode}</div>
+    <div
+      className="m-6 flex flex-col items-center space-y-6 text-5xl"
+      onKeyDown={handleEnter}
+    >
+      {/* <div>{mode}</div>
       <div>{currentIndex}</div>
-      <div>{correct}</div>
-      {vocab.data[currentIndex]?.english}
-      <input
-        value={userAnswer}
-        onChange={(e) => setUserAnswer(e.target.value)}
-        className="outline"
-      ></input>
+      <div>{correct}</div> */}
+      <p className="">{vocab.data[currentIndex]?.english}</p>
+      <div className="w-xl">
+        <Input
+          size="lg"
+          value={userAnswer}
+          onChange={(e) => setUserAnswer(e)}
+        ></Input>
+      </div>
       {mode === "question" ? (
-        <button onClick={handleAnswer}>Submit</button>
+        <Button label="Submit" size="lg" onClick={handleAnswer}></Button>
       ) : (
         <>
-          <button onClick={handleNextQuestion}>Next Question</button>
-          {vocab.data[currentIndex]?.spanish}
+          <Button
+            size="lg"
+            onClick={handleNextQuestion}
+            label="Next Question"
+          ></Button>
+          <p className="">{vocab.data[currentIndex]?.spanish}</p>
           <p>{correct ? "CORRECT!" : "WRONG!"}</p>
         </>
       )}
