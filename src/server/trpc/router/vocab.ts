@@ -11,4 +11,9 @@ export const vocabRouter = router({
     .mutation(({ ctx, input }) => {
       return ctx.prisma.vocab.create({ data: input });
     }),
+  delete: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.vocab.delete({ where: { id: input.id } });
+    }),
 });
