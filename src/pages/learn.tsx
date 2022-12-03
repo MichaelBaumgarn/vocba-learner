@@ -3,6 +3,7 @@ import { type NextPage } from "next";
 import { useState } from "react";
 import { Button, Input } from "react-creme";
 import { Vocab } from "@prisma/client";
+import { prisma } from "../server/db/client";
 
 export async function getServerSideProps() {
   const vocabs = await prisma?.vocab.findMany();
