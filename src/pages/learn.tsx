@@ -120,6 +120,11 @@ const Learn: NextPage<{ vocabs: Vocab[] }> = ({ vocabs }) => {
         </div>
       ) : (
         <>
+          <ShowAnswer
+            answerString={vocabs[currentIndex]?.spanish}
+            answerCorrection={answerCorrection}
+            correct={correct}
+          />
           <div data-cy="next-question">
             <Button
               size="lg"
@@ -127,11 +132,6 @@ const Learn: NextPage<{ vocabs: Vocab[] }> = ({ vocabs }) => {
               label="Next Question"
             ></Button>
           </div>
-          <ShowAnswer
-            answerString={vocabs[currentIndex]?.spanish}
-            answerCorrection={answerCorrection}
-            correct={correct}
-          />
         </>
       )}
     </div>
