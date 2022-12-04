@@ -20,24 +20,31 @@ export const AddVocab: React.FunctionComponent<IAddVocabProps> = ({
 
   const handleAdd = async () => {
     await vocabMutation.mutate({ english, spanish });
+    setEnglish("");
+    setSpanish("");
   };
 
   return (
     <Card header="Add vocab word">
       <div className="flex w-full flex-col justify-start">
         <div>English</div>
-        <Input
-          onChange={(e) => setEnglish(e)}
-          value={english}
-          focusable
-        ></Input>
+        <div data-cy="english">
+          <Input
+            onChange={(e) => setEnglish(e)}
+            value={english}
+            focusable
+          ></Input>
+        </div>
         <div>Spanish</div>
-        <Input
-          onChange={(e) => setSpanish(e)}
-          value={spanish}
-          focusable
-        ></Input>
-        <div className="my-4">
+        <div data-cy="spanish">
+          <Input
+            onChange={(e) => setSpanish(e)}
+            value={spanish}
+            focusable
+            data-cy="spanish"
+          ></Input>
+        </div>
+        <div className="my-4" data-cy="submit">
           <Button accent="flat" size="lg" onClick={handleAdd}>
             Add
           </Button>
