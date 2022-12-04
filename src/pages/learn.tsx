@@ -1,4 +1,5 @@
 import { type NextPage } from "next";
+import { ShowAnswer } from "../components/ShowAnswer";
 
 import { useState } from "react";
 import { Button, Input } from "react-creme";
@@ -13,7 +14,7 @@ export async function getServerSideProps() {
     },
   };
 }
-type MistakeType = { text: string | undefined; correct: boolean };
+export type MistakeType = { text: string | undefined; correct: boolean };
 
 const Learn: NextPage<{ vocabs: Vocab[] }> = ({ vocabs }) => {
   const [mode, setMode] = useState<"question" | "answer">("question");
@@ -122,24 +123,11 @@ const Learn: NextPage<{ vocabs: Vocab[] }> = ({ vocabs }) => {
             onClick={handleNextQuestion}
             label="Next Question"
           ></Button>
-          <p>
-            {answerCorrection.length > 0 && !correct ? (
-              answerCorrection.map((substring, i) => (
-                <span
-                  key={i}
-                  className={`${
-                    substring.correct ? "text-green-500" : "text-orange-500"
-                  }`}
-                >
-                  {substring.text}
-                </span>
-              ))
-            ) : (
-              <p className={correct ? "text-green-500" : "text-red-700"}>
-                {vocabs[currentIndex]?.spanish}
-              </p>
-            )}
-          </p>
+          <ShowAnswer
+            answerString={vocabs[currentIndex]?.spanish}
+            answerCorrection={answerCorrection}
+            correct={correct}
+          />
         </>
       )}
     </div>
