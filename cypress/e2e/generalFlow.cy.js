@@ -36,7 +36,7 @@ describe("check app", () => {
         .find("input")
         .type(answer, { force: true });
       cy.get("[data-cy='submit']").contains("Submit").click();
-      cy.contains("CORRECT!").should("exist");
+      cy.get("[data-cy='correct']").should("exist");
 
       // wrong case
       cy.get("[data-cy='next-question']").contains("Next Question").click();
@@ -44,7 +44,7 @@ describe("check app", () => {
         .find("input")
         .type("foo", { force: true });
       cy.get("[data-cy='submit']").contains("Submit").click();
-      cy.contains("WRONG!").should("exist");
+      cy.get("[data-cy='false']").should("exist");
     });
   });
 });
