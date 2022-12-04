@@ -14,7 +14,13 @@ export function ShowAnswer({
 }: IShowAnswerProps) {
   return (
     <div>
-      {answerCorrection.length > 0 && !correct ? (
+      <p
+        data-cy={correct ? "correct" : "false"}
+        className={correct ? "text-green-500" : "text-red-700"}
+      >
+        {answerString}
+      </p>
+      {answerCorrection.length > 0 && !correct && (
         <p>
           {answerCorrection.map((substring, i) => (
             <span
@@ -26,13 +32,6 @@ export function ShowAnswer({
               {substring.text}
             </span>
           ))}
-        </p>
-      ) : (
-        <p
-          data-cy={correct ? "correct" : "false"}
-          className={correct ? "text-green-500" : "text-red-700"}
-        >
-          {answerString}
         </p>
       )}
     </div>
