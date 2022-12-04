@@ -28,7 +28,10 @@ export function ShowAnswer({
           ))}
         </p>
       ) : (
-        <p data className={correct ? "text-green-500" : "text-red-700"}>
+        <p
+          data-cy={correct ? "correct" : "false"}
+          className={correct ? "text-green-500" : "text-red-700"}
+        >
           {answerString}
         </p>
       )}
