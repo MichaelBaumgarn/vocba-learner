@@ -107,7 +107,7 @@ const Learn: NextPage<{ vocabs: Vocab[] }> = ({ vocabs }) => {
       onKeyDown={handleEnter}
     >
       <p className="">{vocabs[currentIndex]?.english}</p>
-      <div className="w-xl">
+      <div className="w-xl" data-cy="answer-input">
         <Input
           size="lg"
           value={userAnswer}
@@ -115,14 +115,18 @@ const Learn: NextPage<{ vocabs: Vocab[] }> = ({ vocabs }) => {
         ></Input>
       </div>
       {mode === "question" ? (
-        <Button label="Submit" size="lg" onClick={handleAnswer}></Button>
+        <div data-cy="submit">
+          <Button label="Submit" size="lg" onClick={handleAnswer}></Button>
+        </div>
       ) : (
         <>
-          <Button
-            size="lg"
-            onClick={handleNextQuestion}
-            label="Next Question"
-          ></Button>
+          <div data-cy="next-question">
+            <Button
+              size="lg"
+              onClick={handleNextQuestion}
+              label="Next Question"
+            ></Button>
+          </div>
           <ShowAnswer
             answerString={vocabs[currentIndex]?.spanish}
             answerCorrection={answerCorrection}
