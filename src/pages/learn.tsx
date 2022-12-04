@@ -24,6 +24,44 @@ const Learn: NextPage<{ vocabs: Vocab[] }> = ({ vocabs }) => {
     return <div>please create some vocab words</div>;
   }
 
+  const findMistake = () => {
+    let answer = "catfoodogman".split("");
+    let userInput = "batflwadjdogmaan".split("");
+    let result = [];
+    // somehow find matches,
+    // run over matches, find largest matching substrings,
+    // simmilar to longest palindorome
+
+    // if user letter in answer, move to cand
+    // for cand, find range of match both direction left and right
+    // find lengths?
+    userInput.forEach((userLetter) => {
+      // damn find the index instead
+      let match = answer.find((a, i) => a == userLetter);
+      if (match) return result.push(match);
+    });
+    console.log(result);
+    for (let i = 0; i < result.length; i++) {
+      const candidate = result[i];
+    }
+
+    // for (let i = 0; i < userInput.length; i++) {
+    //   const userLetter = userInput[i];
+    //   let correct = false;
+    //   if (userInput[i] == answer[i]) {
+    //     correct = true;
+    //     answer.shift()
+    //     userInput.shift()
+    //   } else {
+    //   }
+    //   result.push({
+    //     letter: userInput[i],
+    //     correct,
+    //   });
+    // }
+  };
+  findMistake();
+
   const handleNextQuestion = () => {
     setMode("question");
     setUserAnswer("");
