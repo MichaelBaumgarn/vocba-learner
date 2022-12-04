@@ -27,7 +27,10 @@ const Learn: NextPage<{ vocabs: Vocab[] }> = ({ vocabs }) => {
   }
   const findMistake = () => {
     const result: MistakeType[] = [];
-    if (userAnswer.length !== vocabs[currentIndex]?.spanish.length) {
+    if (
+      userAnswer.length !== vocabs[currentIndex]?.spanish.length ||
+      userAnswer === vocabs[currentIndex]?.spanish
+    ) {
       return result;
     }
     // to improve this, some wip stuff
@@ -61,7 +64,6 @@ const Learn: NextPage<{ vocabs: Vocab[] }> = ({ vocabs }) => {
         correct,
       });
     }
-    setAnswerCorrection(result);
     return result;
   };
 
@@ -83,7 +85,8 @@ const Learn: NextPage<{ vocabs: Vocab[] }> = ({ vocabs }) => {
       setCorrect(true);
     } else {
       setCorrect(false);
-      findMistake();
+      const mistakes = findMistake();
+      setAnswerCorrection(mistakes);
     }
   };
 
@@ -120,7 +123,7 @@ const Learn: NextPage<{ vocabs: Vocab[] }> = ({ vocabs }) => {
             label="Next Question"
           ></Button>
           <p>
-            {answerCorrection.length > 0 ? (
+            {answerCorrection.length > 0 && !correct ? (
               answerCorrection.map((substring, i) => (
                 <span
                   key={i}
